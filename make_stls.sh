@@ -7,7 +7,7 @@ set -o errexit
 set -o errtrace
 
 # Constants
-openscad="/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD"
+openscad="/usr/bin/openscad"
 timestamp=$(git log -n1 --date=unix --format="%ad" openscad)
 commit_hash=$(git log -n1 --format="%h" openscad)
 
@@ -71,8 +71,7 @@ function export_stl() {
         # The "& \" at the end runs everything in parallel!
         $openscad "openscad/apc.scad" \
             --quiet \
-            -o "$filename" \
-            --export-format "binstl" \
+            -o "$filename.stl" \
             -D 'SHOW_ENCLOSURE_TOP=false' \
             -D 'SHOW_ENCLOSURE_BOTTOM=false' \
             -D 'SHOW_PCB=false' \
